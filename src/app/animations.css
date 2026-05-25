@@ -1,0 +1,342 @@
+/* ── Cart bump (icon giỏ hàng khi thêm sản phẩm) ── */
+@keyframes cart-bump {
+	0% { transform: scale(1) rotate(0deg); }
+	20% { transform: scale(1.25) rotate(-10deg); }
+	40% { transform: scale(0.95) rotate(8deg); }
+	60% { transform: scale(1.15) rotate(-4deg); }
+	80% { transform: scale(1) rotate(2deg); }
+	100% { transform: scale(1) rotate(0deg); }
+}
+.animate-cart-bump {
+	animation: cart-bump 0.6s ease-in-out;
+}
+
+/* ── Cart +1 (số bay lên khi thêm sản phẩm) ── */
+@keyframes cart-plus-one {
+	0% {
+		transform: translate(-50%, 0) scale(0.6);
+		opacity: 0;
+	}
+	20% {
+		transform: translate(-50%, -4px) scale(1.1);
+		opacity: 1;
+	}
+	80% {
+		transform: translate(-50%, -22px) scale(1);
+		opacity: 1;
+	}
+	100% {
+		transform: translate(-50%, -30px) scale(0.9);
+		opacity: 0;
+	}
+}
+.animate-cart-plus-one {
+	animation: cart-plus-one 0.8s ease-out forwards;
+}
+
+/* ── Floating Ring (icon hỗ trợ pulse) ── */
+@keyframes floatingRingPulse {
+	0% {
+		transform: scale(1);
+		opacity: 0.9;
+	}
+	100% {
+		transform: scale(1.6);
+		opacity: 0;
+	}
+}
+
+.floating-ring {
+	animation: floatingRingPulse 1.6s ease-out infinite;
+	pointer-events: none;
+}
+
+.floating-ring.floating-ring-2 {
+	animation-delay: 0.8s;
+}
+
+/* ── Page Navigation Progress Bar ── */
+
+@keyframes progressBar {
+	0% {
+		width: 0%;
+		opacity: 1;
+	}
+	60% {
+		width: 75%;
+		opacity: 1;
+	}
+	100% {
+		width: 95%;
+		opacity: 0.9;
+	}
+}
+
+@keyframes progressBarExit {
+	from {
+		opacity: 1;
+	}
+	to {
+		opacity: 0;
+	}
+}
+
+/**
+ * Thin top progress bar — fixed, zero CLS
+ * Used in (shop)/loading.tsx as page-level loading indicator.
+ */
+.page-progress-bar {
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 3px;
+	width: 0;
+	background: var(--color-primary-500);
+	z-index: 9999;
+	border-radius: 0 2px 2px 0;
+	animation: progressBar 8s cubic-bezier(0.1, 0.05, 0.1, 1) forwards;
+	box-shadow: 0 0 8px var(--color-primary-400);
+}
+
+/* ── Page Enter Fade ── */
+
+@keyframes pageEnter {
+	from {
+		opacity: 0;
+		transform: translateY(4px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.animate-page-enter {
+	animation: pageEnter 0.2s ease-out both;
+}
+
+/* ── Checkout / Bottom Sheet Animations ── */
+
+/* Backdrop fade in */
+@keyframes backdropFadeIn {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+/* Drawer slide in from right */
+@keyframes slideInRight {
+	from {
+		transform: translateX(100%);
+	}
+	to {
+		transform: translateX(0);
+	}
+}
+
+/* Drawer slide out to right */
+@keyframes slideOutRight {
+	from {
+		transform: translateX(0);
+	}
+	to {
+		transform: translateX(100%);
+	}
+}
+
+/* Backdrop fade out */
+@keyframes backdropFadeOut {
+	from {
+		opacity: 1;
+	}
+	to {
+		opacity: 0;
+	}
+}
+
+/* Sheet content fade + slight up */
+@keyframes fadeSlideUp {
+	from {
+		opacity: 0;
+		transform: translateY(8px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+/* Section entrance (stagger-ready) */
+@keyframes sectionEnter {
+	from {
+		opacity: 0;
+		transform: translateY(6px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+/* Toggle indicator */
+@keyframes radioSelect {
+	0% {
+		transform: scale(0.6);
+		opacity: 0.5;
+	}
+	60% {
+		transform: scale(1.15);
+	}
+	100% {
+		transform: scale(1);
+		opacity: 1;
+	}
+}
+
+/* Checkmark bounce */
+@keyframes checkBounce {
+	0%,
+	100% {
+		transform: scale(1);
+	}
+	50% {
+		transform: scale(1.25);
+	}
+}
+
+/* Gentle pulse for loading states */
+@keyframes pulseGentle {
+	0%,
+	100% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0.6;
+	}
+}
+
+/* Spinner rotation */
+@keyframes spinCW {
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+/* Footer slide up from bottom */
+@keyframes slideUp {
+	from {
+		transform: translateY(100%);
+		opacity: 0;
+	}
+	to {
+		transform: translateY(0);
+		opacity: 1;
+	}
+}
+
+/* ── Utility classes ── */
+
+.animate-backdrop {
+	animation: backdropFadeIn 0.2s ease-out both;
+}
+
+.animate-sheet {
+	animation: slideInRight 0.32s cubic-bezier(0.32, 0.72, 0, 1) both;
+}
+
+.animate-fade-up {
+	animation: fadeSlideUp 0.22s ease-out both;
+}
+
+.animate-section-enter {
+	animation: sectionEnter 0.25s ease-out both;
+}
+
+.animate-pulse-gentle {
+	animation: pulseGentle 1.5s ease-in-out infinite;
+}
+
+.animate-spin-cw {
+	animation: spinCW 0.8s linear infinite;
+}
+
+/* Stagger delays for list items */
+.stagger-1 {
+	animation-delay: 0.04s;
+}
+.stagger-2 {
+	animation-delay: 0.08s;
+}
+.stagger-3 {
+	animation-delay: 0.12s;
+}
+.stagger-4 {
+	animation-delay: 0.16s;
+}
+.stagger-5 {
+	animation-delay: 0.2s;
+}
+
+/* Cart bump — icon giỏ hàng khi vừa thêm sản phẩm */
+@keyframes cart-bump {
+	0% {
+		transform: scale(1) rotate(0deg);
+	}
+	20% {
+		transform: scale(1.25) rotate(-10deg);
+	}
+	40% {
+		transform: scale(0.95) rotate(8deg);
+	}
+	60% {
+		transform: scale(1.15) rotate(-4deg);
+	}
+	80% {
+		transform: scale(1) rotate(2deg);
+	}
+	100% {
+		transform: scale(1) rotate(0deg);
+	}
+}
+.animate-cart-bump {
+	animation: cart-bump 0.6s ease-in-out;
+}
+
+@keyframes cart-ping {
+	0% {
+		transform: scale(0.8);
+		opacity: 0.6;
+	}
+	100% {
+		transform: scale(2);
+		opacity: 0;
+	}
+}
+.animate-cart-ping {
+	animation: cart-ping 0.6s ease-out;
+}
+
+@keyframes cart-plus-one {
+	0% {
+		transform: translate(-50%, 0) scale(0.6);
+		opacity: 0;
+	}
+	20% {
+		transform: translate(-50%, -4px) scale(1.1);
+		opacity: 1;
+	}
+	80% {
+		transform: translate(-50%, -22px) scale(1);
+		opacity: 1;
+	}
+	100% {
+		transform: translate(-50%, -30px) scale(0.9);
+		opacity: 0;
+	}
+}
+.animate-cart-plus-one {
+	animation: cart-plus-one 0.8s ease-out forwards;
+}

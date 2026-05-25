@@ -1,0 +1,27 @@
+# LEFTHOOK
+
+# 1. FAST CHECKS (Runs on every commit)
+pre-commit:
+  parallel: false
+  commands:
+    biome-check:
+      glob: "*.{js,jsx,ts,tsx,json,jsonc}"
+      run: pnpm exec biome check --write --no-errors-on-unmatched --files-ignore-unknown=true {staged_files}
+      stage_fixed: true
+    check-types:
+      glob: "*.{ts,tsx}"
+      run: pnpm exec tsc --noEmit
+
+# 2. Runs only before you push
+pre-push:
+  parallel: false
+  commands:
+    build-project:
+      run: pnpm run build
+
+# 3. MESSAGE CHECKS
+commit-msg:
+  commands:
+    commitlint:
+      run: pnpm exec commitlint --edit {1}
+      skip: [merge, rebase]

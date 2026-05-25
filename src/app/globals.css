@@ -1,0 +1,777 @@
+@import "tailwindcss";
+@import "./animations.css";
+
+/* Prevent layout shift when scroll lock hides the scrollbar */
+html {
+	scrollbar-gutter: stable;
+}
+
+/* Always show pointer cursor on interactive elements (Tailwind v4
+   defaults to `default` cursor on buttons; restore browser default). */
+a,
+button {
+	cursor: pointer;
+}
+
+a:disabled,
+button:disabled,
+a[aria-disabled="true"],
+button[aria-disabled="true"] {
+	cursor: not-allowed;
+}
+
+/* ============================================================
+ * DDV Design Tokens — Extracted from Figma DDV (Copy)
+ * Source: https://www.figma.com/design/awotz0BcIpL1s1YFZoXMP2
+ * Date: 2026-03-04
+ * ============================================================ */
+
+/* ── Tailwind CSS v4 Theme Tokens ──────────────────────────── */
+@theme {
+	/* ─────────────── COLORS (design-tokens) ─────────────── */
+
+	/* Primary — NORA brand #1312E9 */
+	--color-primary-50: #ecebff;
+	--color-primary-100: #d4d3ff;
+	--color-primary-200: #a9a7ff;
+	--color-primary-300: #7e7bff;
+	--color-primary-400: #534fff;
+	--color-primary-500: #1312e9;
+	--color-primary-600: #110fd1;
+	--color-primary-700: #0e0cad;
+	--color-primary-800: #0b0989;
+	--color-primary-900: #080765;
+	--color-primary-950: #050441;
+
+	/* Gray */
+	--color-gray-50: #f9fafb;
+	--color-gray-100: #f3f4f6;
+	--color-gray-200: #e5e7eb;
+	--color-gray-300: #d1d5dc;
+	--color-gray-400: #99a1af;
+	--color-gray-500: #6a7282;
+	--color-gray-600: #4a5565;
+	--color-gray-700: #364153;
+	--color-gray-800: #1e2939;
+	--color-gray-900: #101b2b;
+	--color-gray-950: #030712;
+
+	/* Neutral */
+	--color-white: #ffffff;
+	--color-black: #000000;
+
+	/* Orange */
+	--color-orange-50: #fff7ed;
+	--color-orange-100: #ffedd4;
+	--color-orange-200: #ffd6a7;
+	--color-orange-300: #ffb86a;
+	--color-orange-400: #ff8904;
+	--color-orange-500: #ff6900;
+	--color-orange-600: #f54900;
+	--color-orange-700: #ca3500;
+	--color-orange-800: #9f2d00;
+	--color-orange-900: #7e2a0c;
+	--color-orange-950: #441306;
+
+	/* Yellow */
+	--color-yellow-50: #fefce8;
+	--color-yellow-100: #fef9c2;
+	--color-yellow-200: #fff085;
+	--color-yellow-300: #ffdf20;
+	--color-yellow-400: #fdc700;
+	--color-yellow-500: #f0b100;
+	--color-yellow-600: #d08700;
+	--color-yellow-700: #a65f00;
+	--color-yellow-800: #894b00;
+	--color-yellow-900: #733e0a;
+	--color-yellow-950: #432004;
+
+	/* Red — DDV brand red #be1e2d */
+	--color-red-50: #fdebed;
+	--color-red-100: #f9c9ce;
+	--color-red-200: #f3a4ac;
+	--color-red-300: #e87782;
+	--color-red-400: #d54552;
+	--color-red-500: #be1e2d;
+	--color-red-600: #a81928;
+	--color-red-700: #8a131f;
+	--color-red-800: #6c0e18;
+	--color-red-900: #4f0911;
+	--color-red-950: #2c0509;
+
+	/* Green */
+	--color-green-50: #f0fdf4;
+	--color-green-100: #dcfce7;
+	--color-green-200: #b9f8cf;
+	--color-green-300: #7bf1a8;
+	--color-green-400: #05df72;
+	--color-green-500: #00c950;
+	--color-green-600: #00a63e;
+	--color-green-700: #008236;
+	--color-green-800: #016630;
+	--color-green-900: #0d542b;
+	--color-green-950: #032e15;
+
+	/* Blue */
+	--color-blue-50: #eff6ff;
+	--color-blue-100: #dbeafe;
+	--color-blue-200: #bedbff;
+	--color-blue-300: #8ec5ff;
+	--color-blue-400: #51a2ff;
+	--color-blue-500: #2b7fff;
+	--color-blue-600: #155dfc;
+	--color-blue-700: #1447e6;
+	--color-blue-800: #193cb8;
+	--color-blue-900: #1c398e;
+	--color-blue-950: #162456;
+
+	/* ─────────────── SEMANTIC ALIASES ─────────────── */
+
+	/* Text */
+	--color-text-primary: #101828;
+	--color-text-secondary: #4a5565;
+	--color-text-tertiary: #6a7282;
+	--color-text-muted: #99a1af;
+	--color-text-inverse: #ffffff;
+	--color-text-link: #2b7fff;
+	--color-text-price: #be1e2d;
+	--color-text-discount: #d54552;
+	--color-text-error: #be1e2d;
+
+	/* Background */
+	--color-bg-page: #f3f4f6;
+	--color-bg-card: #ffffff;
+	--color-bg-primary: #1312e9;
+	--color-bg-primary-soft: #ecebff;
+	--color-bg-offer: #fef9c2;
+	--color-bg-online-offer: #eff6ff;
+	--color-bg-hot-sale: #fef2f2;
+	--color-bg-badge-new: #ffe2e2;
+	--color-bg-badge-gray: #e5e7eb;
+
+	/* Border */
+	--color-border-default: #e5e7eb;
+	--color-border-strong: #d1d5dc;
+	--color-border-primary: #1312e9;
+
+	/* Popover / Tooltip (shadcn default) */
+	--color-popover: #ffffff;
+	--color-popover-foreground: #101828;
+	--color-border: #e5e7eb;
+
+	/* ─────────────── TOKEN ALIASES (semantic → scale) ─────────────── */
+	/* Map alias names to base tokens. Use in class names: bg-card-gray, text-card-gray, etc. */
+	--color-card-gray: var(--color-gray-100);
+	/* Add more aliases here, e.g.:
+	--color-surface-subtle: var(--color-gray-50);
+	--color-border-card: var(--color-gray-200);
+	*/
+
+	/* ─────────────── TYPOGRAPHY (design-tokens) ─────────────── */
+
+	/* Font Family */
+	--font-primary:
+		-apple-system, BlinkMacSystemFont, var(--font-inter), "Segoe UI",
+		sans-serif;
+
+	/* Font Size Scale */
+	--text-xxs: 0.625rem;
+	--text-xs: 0.75rem;
+	--text-sm: 0.875rem;
+	--text-md: 1rem;
+	--text-lg: 1.125rem;
+	--text-xl: 1.25rem;
+	--text-2xl: 1.5rem;
+	--text-3xl: 1.875rem;
+	--text-4xl: 2.25rem;
+	--text-5xl: 2.5rem;
+	--text-6xl: 3rem;
+
+	/* Line Height Scale */
+	--leading-xxs: 14px;
+	--leading-xs: 16px;
+	--leading-sm: 20px;
+	--leading-md: 24px;
+	--leading-lg: 26px;
+	--leading-xl: 28px;
+	--leading-2xl: 30px;
+	--leading-3xl: 36px;
+	--leading-4xl: 40px;
+	--leading-5xl: 44px;
+	--leading-6xl: 53px;
+
+	/* Font Weight */
+	--font-weight-normal: 400;
+	--font-weight-medium: 500;
+	--font-weight-semibold: 600;
+	--font-weight-bold: 700;
+
+	/* ─────────────── SPACING ─────────────── */
+	/* Based on 4px grid, extracted from Figma paddings & gaps */
+
+	--spacing-0: 0px;
+	--spacing-0_5: 2px;
+	--spacing-1: 4px;
+	--spacing-1_5: 6px;
+	--spacing-2: 8px;
+	--spacing-2_5: 10px;
+	--spacing-3: 12px;
+	--spacing-4: 16px;
+	--spacing-5: 20px;
+	--spacing-6: 24px;
+	--spacing-8: 32px;
+	--spacing-10: 40px;
+	--spacing-16: 64px;
+
+	/* ─────────────── BORDER RADIUS ─────────────── */
+
+	--radius-xs: 4px;
+	--radius-sm: 8px;
+	--radius-md: 16px;
+	--radius-full: 99px;
+
+	/* ─────────────── SHADOWS ─────────────── */
+
+	--shadow-sm: 0px 0px 3px 0px rgba(0, 0, 0, 0.1);
+	--shadow-card:
+		0px 1px 3px 0px rgba(0, 0, 0, 0.1), 0px 1px 2px -1px rgba(0, 0, 0, 0.1);
+	--shadow-card-hover: 0px 3px 16px 0px rgba(0, 0, 0, 0.08);
+
+	/* ─────────────── GRADIENTS ─────────────── */
+
+	--gradient-flash-sale: linear-gradient(
+		180deg,
+		rgba(255, 177, 18, 1) 0%,
+		rgba(244, 112, 27, 1) 37%,
+		rgba(244, 112, 27, 1) 100%
+	);
+	--gradient-progress-bar: linear-gradient(
+		90deg,
+		rgba(255, 184, 106, 1) 0%,
+		rgba(255, 137, 4, 1) 100%
+	);
+	--gradient-star: linear-gradient(
+		179deg,
+		rgba(255, 245, 211, 1) 0%,
+		rgba(255, 226, 7, 1) 100%
+	);
+
+	/* ─────────────── STROKE / BORDER WIDTH ─────────────── */
+
+	--border-width-default: 1px;
+	--border-width-strong: 1.5px;
+}
+
+/* ── View Transition API — smooth page navigation ────────────── */
+/* Chrome 111+, graceful degradation on unsupported browsers */
+@view-transition {
+	navigation: auto;
+}
+
+::view-transition-old(root) {
+	animation: 120ms ease-in both fadeOut;
+}
+
+::view-transition-new(root) {
+	animation: 180ms ease-out both pageEnterTransition;
+}
+
+/* Sticky site header — opt out of crossfade so it stays put during navigation */
+::view-transition-old(site-header),
+::view-transition-new(site-header) {
+	animation: none;
+	mix-blend-mode: normal;
+}
+
+@keyframes fadeOut {
+	from {
+		opacity: 1;
+	}
+
+	to {
+		opacity: 0;
+	}
+}
+
+@keyframes pageEnterTransition {
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
+	}
+}
+
+/* ── Base Reset & Defaults ─────────────────────────────────── */
+
+:root {
+	--background: var(--color-bg-page);
+	--foreground: var(--color-text-primary);
+	/* Breakpoints (match Tailwind defaults) for JS/useMediaQuery */
+	--breakpoint-sm: 640px;
+	--breakpoint-md: 768px;
+	--breakpoint-lg: 1024px;
+	--breakpoint-xl: 1280px;
+	--breakpoint-2xl: 1536px;
+}
+
+body {
+	margin: 0;
+	background: var(--background);
+	color: var(--foreground);
+	font-family: var(--font-primary);
+	font-size: var(--text-md);
+	line-height: var(--leading-md);
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-tap-highlight-color: transparent;
+}
+
+/* ── Utility classes (not covered by Tailwind) ─────────────── */
+
+.sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border-width: 0;
+}
+
+.text-price {
+	color: var(--color-text-price);
+	font-weight: var(--font-weight-semibold);
+}
+
+.text-price-old {
+	color: var(--color-text-muted);
+	text-decoration: line-through;
+}
+
+.text-discount {
+	color: var(--color-text-discount);
+	font-weight: var(--font-weight-medium);
+}
+
+.badge-offer {
+	background: var(--color-bg-badge-gray);
+	border-radius: var(--radius-xs);
+	padding: 2px 4px;
+	font-size: var(--text-xxs);
+}
+
+.badge-new {
+	background: var(--color-bg-badge-new);
+	border-radius: var(--radius-xs);
+	padding: 2px 4px;
+	font-size: var(--text-xxs);
+	color: var(--color-red-500);
+}
+
+.badge-online {
+	background: var(--color-bg-online-offer);
+	border-radius: var(--radius-xs);
+	padding: 2px 4px;
+	font-size: var(--text-xs);
+	font-weight: var(--font-weight-medium);
+	color: var(--color-blue-600);
+}
+
+/* ── Layout: responsive container (max-width + center + padding) ── */
+.container-inner {
+	max-width: 1200px;
+	margin-left: auto;
+	margin-right: auto;
+	box-sizing: content-box;
+
+	/* Mobile (<768px): padding 8px */
+	padding-left: var(--spacing-2);
+	padding-right: var(--spacing-2);
+}
+
+@media (min-width: 768px) {
+	.container-inner {
+		/* Tablet (769px–1199px): padding 16px */
+		padding-left: var(--spacing-4);
+		padding-right: var(--spacing-4);
+	}
+}
+
+@media (min-width: 1200px) {
+	.container-inner {
+		/* Desktop (1200px–1439px): padding 24px */
+		padding-left: var(--spacing-6);
+		padding-right: var(--spacing-6);
+	}
+}
+
+@media (min-width: 1440px) {
+	.container-inner {
+		/* Desktop XL (>=1440px): padding 64px */
+		padding-left: var(--spacing-16);
+		padding-right: var(--spacing-16);
+	}
+}
+
+/* Padding-only variant when you need container padding without max-width */
+.container-padding {
+	/* Mobile (<768px): padding 8px */
+	padding-left: var(--spacing-2);
+	padding-right: var(--spacing-2);
+}
+
+@media (min-width: 768px) {
+	.container-padding {
+		/* Tablet (769px–1199px): padding 16px */
+		padding-left: var(--spacing-4);
+		padding-right: var(--spacing-4);
+	}
+}
+
+@media (min-width: 1200px) {
+	.container-padding {
+		/* Desktop (1200px–1439px): padding 24px */
+		padding-left: var(--spacing-6);
+		padding-right: var(--spacing-6);
+	}
+}
+
+@media (min-width: 1440px) {
+	.container-padding {
+		/* Desktop XL (>=1440px): padding 64px */
+		padding-left: var(--spacing-16);
+		padding-right: var(--spacing-16);
+	}
+}
+
+/* ── Safe area insets (notches, home indicator) ─────────────── */
+.safe-top {
+	padding-top: env(safe-area-inset-top, 0);
+}
+
+.safe-bottom {
+	padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+/* ── Utility classes ───────────────────────────────────────── */
+
+/* Hide scrollbar but keep scroll functionality */
+.scrollbar-hide {
+	-ms-overflow-style: none;
+	/* IE, Edge */
+	scrollbar-width: none;
+	/* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+	display: none;
+	/* Chrome, Safari */
+}
+
+/* ── Modal animations (AddressFormDrawer) ─────────────── */
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes slideUp {
+	from {
+		opacity: 0;
+		transform: translateY(20px) scale(0.98);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateY(0) scale(1);
+	}
+}
+
+/* Bottom sheet slide up for PaymentFailedModal */
+@keyframes slideUpSheet {
+	from {
+		transform: translateY(100%);
+	}
+
+	to {
+		transform: translateY(0);
+	}
+}
+
+.animate-slide-up {
+	animation: slideUpSheet 0.28s cubic-bezier(0.25, 1, 0.5, 1) both;
+}
+
+/* ── Search popover & backdrop animations ────────────── */
+@keyframes searchPanelIn {
+	from {
+		opacity: 0;
+		transform: translateY(-6px) scale(0.98);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateY(0) scale(1);
+	}
+}
+
+@keyframes searchPanelOut {
+	from {
+		opacity: 1;
+		transform: translateY(0) scale(1);
+	}
+
+	to {
+		opacity: 0;
+		transform: translateY(-6px) scale(0.98);
+	}
+}
+
+.search-panel[data-state="open"] {
+	animation: searchPanelIn 200ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.search-panel[data-state="closed"] {
+	animation: searchPanelOut 150ms ease-in both;
+}
+
+.search-backdrop-enter {
+	animation: fadeIn 200ms ease-out both;
+}
+
+/* PDP HTML typography helper (adapted from legacy .box-cmt rules) */
+.pdp-prose {
+	line-height: var(--leading-md);
+	color: var(--color-text-primary);
+	text-align: justify;
+}
+
+.pdp-prose p {
+	font-size: var(--text-md);
+	line-height: 28px;
+	margin-bottom: 15px;
+}
+
+.pdp-prose ul {
+	margin: 0 0 15px;
+	list-style: disc inside;
+}
+
+.pdp-prose ol {
+	margin: 0 0 15px;
+	list-style: decimal inside;
+}
+
+.pdp-prose li {
+	margin-bottom: 10px;
+}
+
+.pdp-prose a {
+	color: var(--color-primary-500);
+	text-decoration: none;
+}
+
+.pdp-prose a:hover {
+	text-decoration: underline;
+}
+
+.pdp-prose h2 {
+	font-size: 20px;
+	font-weight: var(--font-weight-bold);
+	line-height: 1.5;
+	margin-bottom: 8px;
+}
+
+.pdp-prose h3 {
+	font-size: 18px;
+	font-weight: var(--font-weight-bold);
+	line-height: 1.5;
+	margin-top: 14px;
+	margin-bottom: 14px;
+}
+
+.pdp-prose h4,
+.pdp-prose h5,
+.pdp-prose h6 {
+	font-size: 16px;
+	font-weight: var(--font-weight-bold);
+	line-height: 1.5;
+	margin-top: 14px;
+	margin-bottom: 14px;
+}
+
+.pdp-prose img {
+	display: block;
+	margin: 0 auto;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	max-width: 100%;
+	height: auto;
+}
+
+.pdp-prose iframe {
+	display: flex;
+	justify-content: center;
+	max-width: 100%;
+}
+
+.pdp-prose table {
+	border-collapse: collapse;
+	width: 100%;
+	margin-bottom: 15px;
+	overflow-x: auto;
+	display: block;
+}
+
+.pdp-prose th,
+.pdp-prose td {
+	border: 1px solid var(--color-border-default);
+	padding: 8px 12px;
+	text-align: left;
+}
+
+.pdp-prose th {
+	background-color: var(--color-gray-50);
+	font-weight: var(--font-weight-bold);
+}
+
+.pdp-prose tr:nth-child(even) {
+	background-color: var(--color-gray-50);
+}
+
+/* ── Flip Clock Animation ────────────── */
+@keyframes tickOut {
+	from {
+		transform: translateY(0);
+	}
+
+	to {
+		transform: translateY(100%);
+	}
+}
+
+@keyframes tickIn {
+	from {
+		transform: translateY(-100%);
+	}
+
+	to {
+		transform: translateY(0);
+	}
+}
+
+/* ── Custom Accordion Animation ──────────────────────────── */
+/* CSS Grid 0fr → 1fr trick: smooth open AND close, no JS height
+   measurement. Triggered by `.is-open` (state-driven) or by the
+   legacy <details>[open] markup. Used by FAQ, TOC, policy sidebar,
+   and anywhere else needing a smooth collapsible panel. */
+.accordion-custom {
+	interpolate-size: allow-keywords;
+}
+
+.accordion-custom .accordion-custom-content {
+	display: grid;
+	grid-template-rows: 0fr;
+	opacity: 0;
+	transition:
+		grid-template-rows 320ms cubic-bezier(0.4, 0, 0.2, 1),
+		opacity 240ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.accordion-custom[open] .accordion-custom-content,
+.accordion-custom .accordion-custom-content.is-open {
+	grid-template-rows: 1fr;
+	opacity: 1;
+}
+
+.accordion-custom .accordion-custom-inner {
+	overflow: hidden;
+	min-height: 0;
+}
+
+/* ── Collapsible Long Content (product/category/policy) ───── */
+/* Same idea as FAQ accordion, but for partial collapse: animates
+   between a fixed peek height and intrinsic content height using
+   `interpolate-size: allow-keywords`. No JS scrollHeight measurement,
+   no 10000px fallback. Falls back to a snap on older browsers. */
+.pdp-collapsible {
+	interpolate-size: allow-keywords;
+	overflow: hidden;
+	max-height: var(--pdp-collapsed-height, 497px);
+	transition: max-height 320ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.pdp-collapsible.is-expanded {
+	max-height: max-content;
+}
+
+.pdp-collapsible-fade {
+	opacity: 1;
+	transition: opacity 240ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.pdp-collapsible.is-expanded .pdp-collapsible-fade {
+	opacity: 0;
+}
+
+/* ── Floating Support Ring Animation ───────────────────────── */
+@keyframes ring-pulse {
+	0% {
+		transform: scale(1);
+		opacity: 1;
+	}
+
+	100% {
+		transform: scale(1.5);
+		opacity: 0;
+	}
+}
+
+/* ── Tooltip Enter/Exit Animations ─────────────────────────── */
+@keyframes tooltipIn {
+	0% {
+		opacity: 0;
+		transform: translateY(4px) scale(0.94);
+	}
+
+	60% {
+		opacity: 1;
+		transform: translateY(-1px) scale(1.01);
+	}
+
+	100% {
+		opacity: 1;
+		transform: translateY(0) scale(1);
+	}
+}
+
+@keyframes tooltipOut {
+	0% {
+		opacity: 1;
+		transform: translateY(0) scale(1);
+	}
+
+	100% {
+		opacity: 0;
+		transform: translateY(4px) scale(0.96);
+	}
+}
+
+.tooltip-anim[data-state="delayed-open"],
+.tooltip-anim[data-state="instant-open"] {
+	animation: tooltipIn 180ms cubic-bezier(0.22, 1, 0.36, 1) both;
+	transform-origin: var(--radix-tooltip-content-transform-origin);
+}
+
+.tooltip-anim[data-state="closed"] {
+	animation: tooltipOut 120ms ease-in both;
+	transform-origin: var(--radix-tooltip-content-transform-origin);
+}

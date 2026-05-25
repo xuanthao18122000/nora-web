@@ -1,0 +1,30 @@
+include:
+  - project: 'new-ddv/ci-templates'
+    file: '.gitlab-ci-template.yml'
+
+stages:
+  - test
+  - security
+  - deploy
+
+variables:
+  NODE_VERSION: '20'
+
+test:
+  stage: test
+  image: node:20-alpine
+  tags: [docker]
+  script:
+    - npm install -g pnpm@9.12.0
+    - pnpm install --frozen-lockfile --ignore-scripts
+    - pnpm run check
+
+security:
+  stage: security
+  image: node:20-alpine
+  tags: [docker]
+  script:
+    - npm install -g pnpm@9.12.0
+    - pnpm install --frozen-lockfile --ignore-scripts
+    - pnpm audit --audit-level moderate || true
+  allow_failure: true

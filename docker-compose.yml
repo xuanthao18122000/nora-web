@@ -1,0 +1,24 @@
+services:
+  ddv-store-fe:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        NODE_VERSION: '20'
+    image: ddv-store-fe:local
+    container_name: ddv-store-fe
+    restart: always
+    ports:
+      - '127.0.0.1:3008:3008'
+    env_file:
+      - .env
+    environment:
+      NODE_ENV: production
+      APP_PORT: 3008
+      TZ: Asia/Ho_Chi_Minh
+    healthcheck:
+      test: ['CMD', 'wget', '-qO-', 'http://localhost:3008/health']
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
