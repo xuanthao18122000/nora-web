@@ -90,12 +90,12 @@ export default function Header({
 							<span className="hidden md:inline">Giới thiệu</span>
 						</Link>
 						<Link
-							href={ROUTES.WHOLESALE}
+							href={ROUTES.PROJECTS}
 							className="flex items-center gap-2 px-3 py-2.5 text-sm font-medium text-gray-900 hover:text-blue-500 transition-colors"
-							aria-label="Báo giá đại lý"
+							aria-label="Dự án"
 						>
 							<FileText className="size-5" />
-							<span className="hidden md:inline">Báo giá đại lý</span>
+							<span className="hidden md:inline">Dự án</span>
 						</Link>
 						<HeaderCartIcon />
 					</div>

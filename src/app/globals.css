@@ -574,6 +574,16 @@ body {
 	margin-bottom: 10px;
 }
 
+/*
+ * CMS editor wraps each <li> content in a block <p>. With `list-style: inside`,
+ * the inline bullet marker and the block <p> end up on separate lines.
+ * Render the <li>'s direct <p> inline so the text sits right after the bullet.
+ */
+.pdp-prose li > p {
+	display: inline;
+	margin-bottom: 0;
+}
+
 .pdp-prose a {
 	color: var(--color-primary-500);
 	text-decoration: none;

@@ -37,7 +37,7 @@ export default function Footer({
 				</div>
 
 				<div className="mt-8 pt-6 border-t border-gray-200 text-xs text-slate-500 text-center">
-					© {new Date().getFullYear()} Ắc Quy HN Sài Gòn. All rights reserved.
+					© {new Date().getFullYear()} Công ty TNHH Kỹ thuật - Dịch vụ NORA. All rights reserved.
 				</div>
 			</div>
 		</footer>

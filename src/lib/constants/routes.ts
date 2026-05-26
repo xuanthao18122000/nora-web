@@ -13,6 +13,7 @@ export const ROUTES = {
 	ABOUT: "/gioi-thieu",
 	CONTACT: "/lien-he",
 	WHOLESALE: "/bao-gia-dai-ly",
+	PROJECTS: "/du-an",
 	RESCUE: "/cuu-ho-ac-quy-24-7",
 	/** Trang điều khoản / chính sách (slug public) */
 	LEGAL: {

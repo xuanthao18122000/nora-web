@@ -146,7 +146,7 @@
         <div class="container">
           <header class="hero">
             <h1>XML Sitemap</h1>
-            <p>by Ắc Quy HN — Cứu hộ ắc quy 24/24 tại Thủ Đức</p>
+            <p>by Noravn — Cung cấp thiết bị, vật tư và dịch vụ lắp đặt chống sét, tiếp địa.</p>
           </header>
 
           <div class="stats">

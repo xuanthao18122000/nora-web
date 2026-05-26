@@ -11,6 +11,7 @@ import {
 } from "../api/get-post-list-posts";
 import { PostCard } from "../components/PostCard";
 import PostListSearch from "../components/PostListSearch.client";
+import { toLowerCase } from "zod";
 
 interface PostListPageWrapperProps {
 	postList: ResolvedPostList;
@@ -92,7 +93,7 @@ export default async function PostListPageWrapper({
 					<div className="text-base font-medium text-gray-900">
 						{searchTerm
 							? `Không tìm thấy bài viết nào cho "${searchTerm}"`
-							: "Chưa có bài viết nào"}
+							: `Chưa có ${postList.name.toLowerCase()} nào`}
 					</div>
 					<div className="mt-1 text-sm text-gray-500">
 						{searchTerm

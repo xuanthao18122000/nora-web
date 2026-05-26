@@ -280,24 +280,6 @@ export function PostForm({ mode, initialData }: PostFormProps) {
 							</Select>
 						</Field>
 					</div>
-
-					<Field
-						label="Tác giả (User ID)"
-						hint="Tạm thời nhập số — chưa có dropdown user"
-					>
-						<Input
-							type="number"
-							value={form.authorId ?? ""}
-							onChange={(e) =>
-								update(
-									"authorId",
-									e.target.value === ""
-										? undefined
-										: Number(e.target.value),
-								)
-							}
-						/>
-					</Field>
 				</CardBody>
 			</Card>
 
