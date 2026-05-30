@@ -5,6 +5,7 @@ import { CommentTargetType } from "@/components/feature/comments/types";
 import CommentWrapper from "@/components/feature/comments/views/CommentWrapper.client";
 import { toHref } from "@/lib/utils/href";
 import type { SimpleProductDetail } from "@/types/simple-product";
+import { RecordRecentlyViewed } from "../utils/record-recently-viewed.client";
 import ProductDetailComponent from "./product-detail.client";
 
 interface ProductPageWrapperProps {
@@ -32,6 +33,7 @@ export default function ProductPageWrapper({
 
 	return (
 		<div className="container-inner flex min-h-screen flex-col gap-2 bg-gray-100 pt-2 pb-20 md:gap-4 md:py-4">
+			<RecordRecentlyViewed productId={String(product.id)} />
 			<Breadcrumb items={breadcrumbItems} />
 			<BreadcrumbSchema items={breadcrumbItems} />
 

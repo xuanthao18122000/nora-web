@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Fragment } from "react";
 import Carousel from "@/components/common/Carousel";
 import CategoryGrid from "@/components/feature/home/CategoryGrid";
 import DealHotSection from "@/components/feature/home/DealHotSection";
@@ -18,7 +19,7 @@ import type {
 	GroupedSection,
 	PageSectionItem,
 } from "@/types/page";
-import { PageSectionKey } from "@/types/page";
+import { PageSectionKey, SectionType } from "@/types/page";
 import SlideImage from "../../common/SlideImage";
 import { toBannerSlides } from "./banner-utils";
 
@@ -268,6 +269,20 @@ function SectionPlaceholder({ group }: { group: GroupedSection }) {
 
 /* ─────────────── PageRenderer ─────────────── */
 
+/**
+ * Một section được coi là "banner" khi key là hero/promo banner hoặc khi
+ * `type === "banner"`. Dùng để quyết định vị trí của RecentlyViewed: nếu
+ * section đầu trang là banner thì RecentlyViewed phải nằm DƯỚI banner đó.
+ */
+function isBannerSection(group: GroupedSection): boolean {
+	const { key, type } = group.section;
+	return (
+		key === PageSectionKey.HERO_BANNER ||
+		key === PageSectionKey.PROMO_BANNER ||
+		type === SectionType.BANNER
+	);
+}
+
 interface PageRendererProps {
 	sections: GroupedSection[];
 	heroFromLayout?: GroupedSection | null;
@@ -280,13 +295,26 @@ export default async function PageRenderer({
 	if (sections.length === 0) return null;
 	const isMobile = await isMobileUA();
 
-	// We render RecentlyViewed right under Hero on Homepage.
-	// Filter it out from CMS sections to avoid duplicates / wrong placement.
-	const nonHeroSections = sections.filter(
+	// RecentlyViewed được render ngay trong PageRenderer (không lấy từ CMS) nên
+	// loại bỏ section RECENTLY_VIEWED do CMS trả về để tránh trùng lặp. HERO_BANNER
+	// đã render qua `heroFromLayout` nên cũng loại khỏi danh sách CMS.
+	const cmsSections = sections.filter(
 		(g) =>
 			g.section.key !== PageSectionKey.HERO_BANNER &&
 			g.section.key !== PageSectionKey.RECENTLY_VIEWED,
 	);
+
+	// Quyết định vị trí chèn RecentlyViewed:
+	//  • Nếu có hero từ layout (luôn là banner ở đầu) → RecentlyViewed nằm ngay
+	//    dưới hero (chèn ở đầu danh sách CMS).
+	//  • Nếu không có hero nhưng section CMS đầu tiên là banner → chèn SAU banner đó.
+	//  • Còn lại → chèn ở đầu (trên cùng).
+	const recentlyViewed = (
+		<RecentlyViewedSection key="recently-viewed-section" />
+	);
+
+	const insertAfterFirstBanner =
+		!heroFromLayout && cmsSections.length > 0 && isBannerSection(cmsSections[0]);
 
 	return (
 		<div className="container-inner flex flex-col gap-2 md:gap-4 py-2 md:py-4">
@@ -295,12 +323,19 @@ export default async function PageRenderer({
 					{renderSection(heroFromLayout, isMobile)}
 				</div>
 			)}
-			<RecentlyViewedSection />
-			{nonHeroSections.map((group) => (
-				<div key={group.section.id}>
-					{renderSection(group, isMobile)}
-				</div>
-			))}
+			{!insertAfterFirstBanner && recentlyViewed}
+			{cmsSections.map((group, idx) =>
+				insertAfterFirstBanner && idx === 0 ? (
+					<Fragment key={group.section.id}>
+						<div>{renderSection(group, isMobile)}</div>
+						{recentlyViewed}
+					</Fragment>
+				) : (
+					<div key={group.section.id}>
+						{renderSection(group, isMobile)}
+					</div>
+				),
+			)}
 		</div>
 	);
 }
